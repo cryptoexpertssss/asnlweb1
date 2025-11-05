@@ -113,11 +113,20 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.profileCircle}>
-          <Text style={styles.profileInitial}>
-            {user?.name?.charAt(0).toUpperCase() || 'U'}
-          </Text>
-        </View>
+        <TouchableOpacity style={styles.profileImageContainer} onPress={handleImagePick}>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <View style={styles.profileCircle}>
+              <Text style={styles.profileInitial}>
+                {user?.name?.charAt(0).toUpperCase() || 'U'}
+              </Text>
+            </View>
+          )}
+          <View style={styles.cameraIcon}>
+            <Ionicons name="camera" size={20} color="#FFFFFF" />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.userName}>{user?.name || 'User'}</Text>
         <Text style={styles.userEmail}>{user?.email || ''}</Text>
       </View>
