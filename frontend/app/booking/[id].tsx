@@ -105,7 +105,11 @@ export default function BookingScreen() {
         <Text style={styles.headerTitle}>Book Service</Text>
       </View>
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        style={styles.content} 
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <Text style={styles.sectionTitle}>Select Date</Text>
         <ScrollView
           horizontal
