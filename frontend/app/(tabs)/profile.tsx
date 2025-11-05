@@ -96,12 +96,40 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleEditProfile = () => {
+    Alert.alert('Edit Profile', 'Profile editing feature coming soon!');
+  };
+
+  const handleNotifications = () => {
+    Alert.alert('Notifications', 'Notification settings coming soon!');
+  };
+
+  const handleFavorites = () => {
+    Alert.alert('Favorites', 'View your favorite salons - Coming soon!');
+  };
+
+  const handleHelp = () => {
+    Alert.alert(
+      'Help & Support',
+      'Need help?\n\nContact us at:\nsupport@gobeauty.com\n\nPhone: +92 300 1234567',
+      [{ text: 'OK' }]
+    );
+  };
+
+  const handleAbout = () => {
+    Alert.alert(
+      'About Gobeauty',
+      'Version 1.0.0\n\nGobeauty - Your ultimate beauty service booking app.\n\nFind and book beauty services near you with ease.',
+      [{ text: 'OK' }]
+    );
+  };
+
   const menuItems = [
-    { id: '1', title: 'Edit Profile', icon: 'person-outline', onPress: () => {} },
-    { id: '2', title: 'Notifications', icon: 'notifications-outline', onPress: () => {} },
-    { id: '3', title: 'Favorites', icon: 'heart-outline', onPress: () => {} },
-    { id: '4', title: 'Help & Support', icon: 'help-circle-outline', onPress: () => {} },
-    { id: '5', title: 'About', icon: 'information-circle-outline', onPress: () => {} },
+    { id: '1', title: 'Edit Profile', icon: 'person-outline', onPress: handleEditProfile },
+    { id: '2', title: 'Notifications', icon: 'notifications-outline', onPress: handleNotifications },
+    { id: '3', title: 'Favorites', icon: 'heart-outline', onPress: handleFavorites },
+    { id: '4', title: 'Help & Support', icon: 'help-circle-outline', onPress: handleHelp },
+    { id: '5', title: 'About', icon: 'information-circle-outline', onPress: handleAbout },
   ];
 
   return (
