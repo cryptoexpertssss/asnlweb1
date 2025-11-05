@@ -97,18 +97,22 @@ export default function ProfileScreen() {
   };
 
   const handleEditProfile = () => {
+    console.log('Edit Profile clicked');
     Alert.alert('Edit Profile', 'Profile editing feature coming soon!');
   };
 
   const handleNotifications = () => {
+    console.log('Notifications clicked');
     Alert.alert('Notifications', 'Notification settings coming soon!');
   };
 
   const handleFavorites = () => {
+    console.log('Favorites clicked');
     Alert.alert('Favorites', 'View your favorite salons - Coming soon!');
   };
 
   const handleHelp = () => {
+    console.log('Help clicked');
     Alert.alert(
       'Help & Support',
       'Need help?\n\nContact us at:\nsupport@gobeauty.com\n\nPhone: +92 300 1234567',
@@ -117,6 +121,7 @@ export default function ProfileScreen() {
   };
 
   const handleAbout = () => {
+    console.log('About clicked');
     Alert.alert(
       'About Gobeauty',
       'Version 1.0.0\n\nGobeauty - Your ultimate beauty service booking app.\n\nFind and book beauty services near you with ease.',
