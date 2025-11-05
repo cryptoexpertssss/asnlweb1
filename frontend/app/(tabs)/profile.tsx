@@ -75,7 +75,7 @@ export default function ProfileScreen() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     Alert.alert(
       'Logout',
       'Are you sure you want to logout?',
@@ -89,8 +89,12 @@ export default function ProfileScreen() {
               // Clear all stored data
               await AsyncStorage.removeItem('token');
               await AsyncStorage.removeItem('user');
-              // Navigate to welcome screen
-              router.replace('/');
+              await AsyncStorage.removeItem('profileImage');
+              
+              // Small delay to ensure storage is cleared
+              setTimeout(() => {
+                router.replace('/');
+              }, 100);
             } catch (error) {
               console.error('Logout error:', error);
               Alert.alert('Error', 'Failed to logout. Please try again.');
