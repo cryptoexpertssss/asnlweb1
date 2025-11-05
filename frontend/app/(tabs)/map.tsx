@@ -52,22 +52,33 @@ export default function MapScreen() {
     }
   };
 
+  const renderSalonItem = ({ item }: { item: Salon }) => (
+    <TouchableOpacity
+      style={styles.salonCard}
+      onPress={() => router.push(`/salon/${item.id}`)}
+    >
+      <View style={styles.salonIcon}>
+        <Ionicons name="location" size={32} color="#FF69B4" />
+      </View>
+      <View style={styles.salonInfo}>
+        <Text style={styles.salonName}>{item.name}</Text>
+        <Text style={styles.salonAddress} numberOfLines={2}>
+          {item.address}
+        </Text>
+        <View style={styles.ratingContainer}>
+          <Ionicons name="star" size={16} color="#FFD700" />
+          <Text style={styles.rating}>{item.rating}</Text>
+        </View>
+      </View>
+      <Ionicons name="chevron-forward" size={24} color="#999" />
+    </TouchableOpacity>
+  );
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#FF69B4" />
-        <Text style={styles.loadingText}>Loading map...</Text>
-      </View>
-    );
-  }
-
-  if (!location) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Unable to load map</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={loadMapData}>
-          <Text style={styles.retryButtonText}>Retry</Text>
-        </TouchableOpacity>
+        <Text style={styles.loadingText}>Loading salons...</Text>
       </View>
     );
   }
@@ -76,23 +87,24 @@ export default function MapScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Nearby Salons</Text>
+        <Text style={styles.headerSubtitle}>
+          {salons.length} salons found near you
+        </Text>
       </View>
 
-      <MapView style={styles.map} initialRegion={location} showsUserLocation showsMyLocationButton>
-        {salons.map((salon) => (
-          <Marker
-            key={salon.id}
-            coordinate={{
-              latitude: salon.latitude,
-              longitude: salon.longitude,
-            }}
-            title={salon.name}
-            description={`Rating: ${salon.rating} ⭐`}
-            pinColor="#FF69B4"
-            onCalloutPress={() => router.push(`/salon/${salon.id}`)}
-          />
-        ))}
-      </MapView>
+      {salons.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Ionicons name="location-outline" size={80} color="#E0E0E0" />
+          <Text style={styles.emptyText}>No salons found</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={salons}
+          renderItem={renderSalonItem}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContainer}
+        />
+      )}
     </View>
   );
 }
