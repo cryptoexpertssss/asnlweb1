@@ -104,7 +104,10 @@ export default function SalonDetailScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <View style={styles.imageContainer}>
           <Image source={{ uri: salon.image }} style={styles.salonImage} />
           <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
