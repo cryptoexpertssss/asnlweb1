@@ -119,7 +119,11 @@ export default function HomeScreen() {
         />
       </View>
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        style={styles.content} 
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <Text style={styles.sectionTitle}>Categories</Text>
         <FlatList
           data={categories}
