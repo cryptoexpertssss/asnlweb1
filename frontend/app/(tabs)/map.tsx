@@ -6,11 +6,21 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
+
+// Conditionally import MapView only on native platforms
+let MapView: any = null;
+let Marker: any = null;
+let Location: any = null;
+
+if (Platform.OS !== 'web') {
+  MapView = require('react-native-maps').default;
+  Marker = require('react-native-maps').Marker;
+  Location = require('expo-location');
+}
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
