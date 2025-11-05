@@ -40,8 +40,16 @@ export default function ProfileScreen() {
           text: 'Logout',
           style: 'destructive',
           onPress: async () => {
-            await AsyncStorage.clear();
-            router.replace('/');
+            try {
+              // Clear all stored data
+              await AsyncStorage.removeItem('token');
+              await AsyncStorage.removeItem('user');
+              // Navigate to welcome screen
+              router.replace('/');
+            } catch (error) {
+              console.error('Logout error:', error);
+              Alert.alert('Error', 'Failed to logout. Please try again.');
+            }
           },
         },
       ],
