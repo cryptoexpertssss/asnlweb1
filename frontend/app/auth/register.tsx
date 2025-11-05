@@ -163,6 +163,18 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 24,
   },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 24,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FFF5F8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
   header: {
     alignItems: 'center',
     marginBottom: 32,
