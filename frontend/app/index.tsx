@@ -28,7 +28,9 @@ export default function WelcomeScreen() {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.logoContainer}>
-          <Text style={styles.logo}>💅</Text>
+          <View style={styles.logoCircle}>
+            <Ionicons name="cut" size={50} color="#FFFFFF" />
+          </View>
           <Text style={styles.title}>Gobeauty</Text>
           <Text style={styles.subtitle}>Find & Book Beauty Services Near You</Text>
         </View>
