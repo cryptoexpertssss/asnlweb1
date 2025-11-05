@@ -69,7 +69,10 @@ export default function ProfileScreen() {
         <Text style={styles.userEmail}>{user?.email || ''}</Text>
       </View>
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        style={styles.content} 
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.menuSection}>
           {menuItems.map((item) => (
             <TouchableOpacity
