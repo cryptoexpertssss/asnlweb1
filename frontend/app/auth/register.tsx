@@ -32,21 +32,36 @@ export default function RegisterScreen() {
       return;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/auth/register`, {
-        name,
-        email,
-        phone,
-        password,
-      });
+      const requestData: any = {
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password: password,
+      };
+
+      // Only include phone if it's not empty
+      if (phone && phone.trim()) {
+        requestData.phone = phone.trim();
+      }
+
+      const response = await axios.post(`${BACKEND_URL}/api/auth/register`, requestData);
 
       await AsyncStorage.setItem('token', response.data.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
 
       router.replace('/(tabs)');
     } catch (error: any) {
-      Alert.alert('Error', error.response?.data?.detail || 'Registration failed');
+      console.error('Registration error:', error);
+      const errorMessage = error.response?.data?.detail || 'Registration failed. Please try again.';
+      Alert.alert('Error', errorMessage);
     } finally {
       setLoading(false);
     }

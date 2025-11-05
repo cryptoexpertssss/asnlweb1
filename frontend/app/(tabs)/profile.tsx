@@ -96,12 +96,45 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleEditProfile = () => {
+    console.log('Edit Profile clicked');
+    Alert.alert('Edit Profile', 'Profile editing feature coming soon!');
+  };
+
+  const handleNotifications = () => {
+    console.log('Notifications clicked');
+    Alert.alert('Notifications', 'Notification settings coming soon!');
+  };
+
+  const handleFavorites = () => {
+    console.log('Favorites clicked');
+    Alert.alert('Favorites', 'View your favorite salons - Coming soon!');
+  };
+
+  const handleHelp = () => {
+    console.log('Help clicked');
+    Alert.alert(
+      'Help & Support',
+      'Need help?\n\nContact us at:\nsupport@gobeauty.com\n\nPhone: +92 300 1234567',
+      [{ text: 'OK' }]
+    );
+  };
+
+  const handleAbout = () => {
+    console.log('About clicked');
+    Alert.alert(
+      'About Gobeauty',
+      'Version 1.0.0\n\nGobeauty - Your ultimate beauty service booking app.\n\nFind and book beauty services near you with ease.',
+      [{ text: 'OK' }]
+    );
+  };
+
   const menuItems = [
-    { id: '1', title: 'Edit Profile', icon: 'person-outline', onPress: () => {} },
-    { id: '2', title: 'Notifications', icon: 'notifications-outline', onPress: () => {} },
-    { id: '3', title: 'Favorites', icon: 'heart-outline', onPress: () => {} },
-    { id: '4', title: 'Help & Support', icon: 'help-circle-outline', onPress: () => {} },
-    { id: '5', title: 'About', icon: 'information-circle-outline', onPress: () => {} },
+    { id: '1', title: 'Edit Profile', icon: 'person-outline', onPress: handleEditProfile },
+    { id: '2', title: 'Notifications', icon: 'notifications-outline', onPress: handleNotifications },
+    { id: '3', title: 'Favorites', icon: 'heart-outline', onPress: handleFavorites },
+    { id: '4', title: 'Help & Support', icon: 'help-circle-outline', onPress: handleHelp },
+    { id: '5', title: 'About', icon: 'information-circle-outline', onPress: handleAbout },
   ];
 
   return (
@@ -134,9 +167,13 @@ export default function ProfileScreen() {
             <TouchableOpacity
               key={item.id}
               style={styles.menuItem}
-              onPress={item.onPress}
+              onPress={() => {
+                console.log('Menu item pressed:', item.title);
+                item.onPress();
+              }}
+              activeOpacity={0.7}
             >
-              <View style={styles.menuItemLeft}>
+              <View style={styles.menuItemLeft} pointerEvents="none">
                 <Ionicons name={item.icon as any} size={24} color="#FF69B4" />
                 <Text style={styles.menuItemText}>{item.title}</Text>
               </View>
