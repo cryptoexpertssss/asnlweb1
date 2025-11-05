@@ -33,16 +33,7 @@
           "resizeMode": "contain",
           "backgroundColor": "#000"
         }
-      ],
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow Gobeauty to use your location to show nearby salons."
-        }
       ]
-    ],
-    "permissions": [
-      "LOCATION"
     ],
     "experiments": {
       "typedRoutes": true
