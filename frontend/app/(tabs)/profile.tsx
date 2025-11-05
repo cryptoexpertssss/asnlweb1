@@ -16,9 +16,11 @@ import * as ImagePicker from 'expo-image-picker';
 export default function ProfileScreen() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
 
   useEffect(() => {
     loadUser();
+    loadProfileImage();
   }, []);
 
   const loadUser = async () => {
@@ -29,6 +31,47 @@ export default function ProfileScreen() {
       }
     } catch (error) {
       console.error('Error loading user:', error);
+    }
+  };
+
+  const loadProfileImage = async () => {
+    try {
+      const image = await AsyncStorage.getItem('profileImage');
+      if (image) {
+        setProfileImage(image);
+      }
+    } catch (error) {
+      console.error('Error loading profile image:', error);
+    }
+  };
+
+  const handleImagePick = async () => {
+    try {
+      // Request permission
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Please allow access to your photos to change profile picture.');
+        return;
+      }
+
+      // Pick image
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.5,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+        setProfileImage(base64Image);
+        await AsyncStorage.setItem('profileImage', base64Image);
+        Alert.alert('Success', 'Profile picture updated!');
+      }
+    } catch (error) {
+      console.error('Error picking image:', error);
+      Alert.alert('Error', 'Failed to update profile picture.');
     }
   };
 
