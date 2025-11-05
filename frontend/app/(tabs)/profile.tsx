@@ -76,34 +76,24 @@ export default function ProfileScreen() {
   };
 
   const handleLogout = async () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              console.log('Logging out...');
-              
-              // Clear all stored data immediately
-              await AsyncStorage.multiRemove(['token', 'user', 'profileImage']);
-              
-              console.log('Storage cleared, navigating to login...');
-              
-              // Navigate directly to login instead of welcome
-              router.replace('/auth/login');
-            } catch (error) {
-              console.error('Logout error:', error);
-              Alert.alert('Error', 'Failed to logout. Please try again.');
-            }
-          },
-        },
-      ],
-      { cancelable: true }
-    );
+    try {
+      console.log('Starting logout process...');
+      
+      // Clear all stored data
+      await AsyncStorage.clear();
+      console.log('All storage cleared');
+      
+      // Force navigation to index (welcome screen)
+      if (router.canGoBack()) {
+        router.dismissAll();
+      }
+      router.replace('/');
+      
+      console.log('Navigation completed');
+    } catch (error) {
+      console.error('Logout error:', error);
+      Alert.alert('Error', 'Failed to logout. Please try again.');
+    }
   };
 
   const menuItems = [
