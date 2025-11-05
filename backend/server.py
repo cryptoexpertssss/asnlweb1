@@ -293,6 +293,7 @@ async def create_booking(booking_data: BookingCreate, user_id: str = Depends(get
     
     result = await db.bookings.insert_one(booking_dict)
     booking_dict["id"] = str(result.inserted_id)
+    booking_dict["created_at"] = booking_dict["created_at"].isoformat()
     
     return booking_dict
 
