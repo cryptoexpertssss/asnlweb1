@@ -167,9 +167,13 @@ export default function ProfileScreen() {
             <TouchableOpacity
               key={item.id}
               style={styles.menuItem}
-              onPress={item.onPress}
+              onPress={() => {
+                console.log('Menu item pressed:', item.title);
+                item.onPress();
+              }}
+              activeOpacity={0.7}
             >
-              <View style={styles.menuItemLeft}>
+              <View style={styles.menuItemLeft} pointerEvents="none">
                 <Ionicons name={item.icon as any} size={24} color="#FF69B4" />
                 <Text style={styles.menuItemText}>{item.title}</Text>
               </View>
