@@ -86,15 +86,15 @@ export default function ProfileScreen() {
           style: 'destructive',
           onPress: async () => {
             try {
-              // Clear all stored data
-              await AsyncStorage.removeItem('token');
-              await AsyncStorage.removeItem('user');
-              await AsyncStorage.removeItem('profileImage');
+              console.log('Logging out...');
               
-              // Small delay to ensure storage is cleared
-              setTimeout(() => {
-                router.replace('/');
-              }, 100);
+              // Clear all stored data immediately
+              await AsyncStorage.multiRemove(['token', 'user', 'profileImage']);
+              
+              console.log('Storage cleared, navigating to login...');
+              
+              // Navigate directly to login instead of welcome
+              router.replace('/auth/login');
             } catch (error) {
               console.error('Logout error:', error);
               Alert.alert('Error', 'Failed to logout. Please try again.');
