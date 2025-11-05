@@ -7,26 +7,18 @@ import {
   Alert,
   TouchableOpacity,
   Platform,
+  FlatList,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
-
-// Conditionally import MapView only on native platforms
-let MapView: any = null;
-let Marker: any = null;
-let Location: any = null;
-
-if (Platform.OS !== 'web') {
-  MapView = require('react-native-maps').default;
-  Marker = require('react-native-maps').Marker;
-  Location = require('expo-location');
-}
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
 interface Salon {
   id: string;
   name: string;
+  address: string;
   latitude: number;
   longitude: number;
   rating: number;
@@ -44,42 +36,17 @@ export default function MapScreen() {
 
   const loadMapData = async () => {
     try {
-      // Request location permission
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'Location permission is required to show nearby salons');
-        setLoading(false);
-        return;
-      }
-
-      // Get current location
-      const currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      });
-
       // Load salons
       const response = await axios.get(`${BACKEND_URL}/api/salons`);
       setSalons(response.data);
-    } catch (error) {
-      console.error('Error loading map data:', error);
+      
       // Set default location (Islamabad)
       setLocation({
         latitude: 33.6844,
         longitude: 73.0479,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
       });
-      // Load salons anyway
-      try {
-        const response = await axios.get(`${BACKEND_URL}/api/salons`);
-        setSalons(response.data);
-      } catch (err) {
-        console.error('Error loading salons:', err);
-      }
+    } catch (error) {
+      console.error('Error loading map data:', error);
     } finally {
       setLoading(false);
     }
