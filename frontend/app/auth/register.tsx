@@ -62,6 +62,13 @@ export default function RegisterScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#FF69B4" />
+        </TouchableOpacity>
+
         <View style={styles.header}>
           <Text style={styles.logo}>💅</Text>
           <Text style={styles.title}>Create Account</Text>
